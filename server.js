@@ -10,11 +10,19 @@ app.use(cors({
 
 app.get('/', (req, res) => {
     let planet = req._parsedUrl.query;
+
+    // search for planet in database
+
+
     res.send(planet);
 })
 
 const connectDB = (url) => {
     return mongoose.connect(url);
+}
+
+const checkData = () => {
+    
 }
 
 const start = async() => {

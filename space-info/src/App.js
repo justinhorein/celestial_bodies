@@ -4,11 +4,10 @@ import { useState } from 'react';
 import axios from 'axios';
 
 function App() {
-  const body = fetchData();
-  const [value, setValue] = useState('planet');
+  // const body = fetchData();
+  const [planet, setPlanet] = useState('planet');
 
   const handleSelect = (data) => {
-    // setValue(planet.target.value);
     let planet = data.target.value;
     let url = "http://localhost:5000?" + planet;
 
@@ -18,7 +17,7 @@ function App() {
       })
       .then(function(res) {
         let str = res.data;
-        setValue(str);
+        setPlanet(str);
       });
   }
 
@@ -31,7 +30,7 @@ function App() {
         <option value="soleil">Sun</option>
       </select>
 
-      <div>{value}</div>
+      <div>{planet}</div>
 
       {/* <div>Name: {body.englishName}</div>
       <div>Gravity: {body.gravity} m/s^2</div>
@@ -44,27 +43,27 @@ function App() {
   );
 }
 
-function fetchData() {
-  let data = localStorage.getItem("planets");
-  data = JSON.parse(data);
-  // console.log(data);
+// function fetchData() {
+//   let data = localStorage.getItem("planets");
+//   data = JSON.parse(data);
+//   // console.log(data);
 
-  if (!data) {
-    axios({
-    method: "get",
-    url: "https://api.le-systeme-solaire.net/rest/bodies",
-    })
-    .then(function({res}) {
-      let str = JSON.stringify(res.data);
-      // localStorage.setItem("planets", str);
-      // data = localStorage.getItem("planets");
-      // data = JSON.parse(data);
-      // Write data to Mongodb
+//   if (!data) {
+//     axios({
+//     method: "get",
+//     url: "https://api.le-systeme-solaire.net/rest/bodies",
+//     })
+//     .then(function({res}) {
+//       let str = JSON.stringify(res.data);
+//       // localStorage.setItem("planets", str);
+//       // data = localStorage.getItem("planets");
+//       // data = JSON.parse(data);
+//       // Write data to Mongodb
       
-    });
-  }
+//     });
+//   }
 
-  return data;
-}
+//   return data;
+// }
 
 export default App;
