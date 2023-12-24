@@ -8,7 +8,16 @@ function App() {
   const [value, setValue] = useState('planet');
 
   const handleSelect = (planet) => {
-    setValue(planet.target.value);
+    // setValue(planet.target.value);
+
+    axios({
+      method: "get",
+      url: "http://localhost:5000",
+      })
+      .then(function(res) {
+        let str = JSON.stringify(res.data);
+        setValue(str);
+      });
   }
 
   return (
@@ -43,7 +52,7 @@ function fetchData() {
     method: "get",
     url: "https://api.le-systeme-solaire.net/rest/bodies",
     })
-    .then(function(res) {
+    .then(function({res}) {
       let str = JSON.stringify(res.data);
       // localStorage.setItem("planets", str);
       // data = localStorage.getItem("planets");
