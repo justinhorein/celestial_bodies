@@ -9,7 +9,8 @@ app.use(cors({
 }))
 
 app.get('/', (req, res) => {
-    res.json({"dog": 4});
+    let planet = req._parsedUrl.query;
+    res.send(planet);
 })
 
 const connectDB = (url) => {

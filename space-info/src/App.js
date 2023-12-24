@@ -7,15 +7,17 @@ function App() {
   const body = fetchData();
   const [value, setValue] = useState('planet');
 
-  const handleSelect = (planet) => {
+  const handleSelect = (data) => {
     // setValue(planet.target.value);
+    let planet = data.target.value;
+    let url = "http://localhost:5000?" + planet;
 
     axios({
       method: "get",
-      url: "http://localhost:5000",
+      url: url,
       })
       .then(function(res) {
-        let str = JSON.stringify(res.data);
+        let str = res.data;
         setValue(str);
       });
   }
