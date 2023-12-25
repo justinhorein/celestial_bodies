@@ -1,10 +1,13 @@
 
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
-  // const body = fetchData();
+  useEffect(() => {
+    checkData();
+  }, []);
+  
   const [planet, setPlanet] = useState('planet');
 
   const handleSelect = (data) => {
@@ -43,27 +46,37 @@ function App() {
   );
 }
 
-// function fetchData() {
-//   let data = localStorage.getItem("planets");
-//   data = JSON.parse(data);
-//   // console.log(data);
+function checkData() {
+  // let data = localStorage.getItem("planets");
+  // data = JSON.parse(data);
+  // console.log(data);
+  console.log("runnninnin");
+  let data = {};
 
-//   if (!data) {
-//     axios({
-//     method: "get",
-//     url: "https://api.le-systeme-solaire.net/rest/bodies",
-//     })
-//     .then(function({res}) {
-//       let str = JSON.stringify(res.data);
-//       // localStorage.setItem("planets", str);
-//       // data = localStorage.getItem("planets");
-//       // data = JSON.parse(data);
-//       // Write data to Mongodb
-      
-//     });
-//   }
+  // axios({
+  //   method: "get",
+  //   url: "http://localhost:5000/get?soleil"
+  // })
+  // .then(function({res}) {
+  //   data = res.data;
+  // });
 
-//   return data;
-// }
+
+    axios({
+      method: "get",
+      url: "https://api.le-systeme-solaire.net/rest/bodies",
+    })
+    .then(function(res) {
+      data = res.data;
+    });
+
+
+    axios.post("http://localhost:5000/post", data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+  }
+
 
 export default App;
