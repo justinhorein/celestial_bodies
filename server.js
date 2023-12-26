@@ -9,9 +9,10 @@ const app = express();
 app.use(cors({
     origin: "http://localhost:3000/"
 }))
-app.use(express.json())
+app.use(express.json( {limit: '50mb' }))
 app.use(express.urlencoded({
-    extended: true
+    extended: true,
+    limit: '50mb'
 }));
 
 app.get('/get', (req, res) => {
@@ -36,32 +37,25 @@ app.get('/get', (req, res) => {
 })
 
 app.post('/post', (req, res) => {
-    console.log("VVVVVVVVVVVV")
-    console.log(req.body);
+    // console.log(req.body);
     
+    // writeData(req.body);
 
-    res.redirect("/");
+    res.send("stooopiit")
 })
 
 const connectDB = (url) => {
     return mongoose.connect(url);
 }
 
-const writeData = () => {
-    var data;
+const writeData = (data) => {
 
 
-    MongoClient.connect("mongodb://localhost:27017", (err, db) => {
-        if (err) {
-            console.log("error!");
-        }
+    mongoose.connect("mongodb://localhost:27017/local");
+    var conn = mongoose.connection;
+    conn.collection("celestial_bodies").insertOne(data);
 
-        // Add Card to deck
-        const dbo = db.db("local");
-        const collection = dbo.collection("celestial_bodies");
-        console.log(data);
-    })
-    
+    console.log("Data written!")
 }
 
 const start = async() => {

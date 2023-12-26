@@ -51,7 +51,7 @@ function checkData() {
   // data = JSON.parse(data);
   // console.log(data);
   console.log("runnninnin");
-  let data = {};
+  let data;
 
   // axios({
   //   method: "get",
@@ -67,15 +67,9 @@ function checkData() {
       url: "https://api.le-systeme-solaire.net/rest/bodies",
     })
     .then(function(res) {
-      data = res.data;
-    });
-
-
-    axios.post("http://localhost:5000/post", data, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    });
+      // console.log(res.data.bodies);
+      axios.post("http://localhost:5000/post", res.data.bodies);
+    });  
   }
 
 
